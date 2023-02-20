@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "student", foreignKeys = [
     ForeignKey(
-        entity = FomationEntity::class,
+        entity = FormationEntity::class,
         parentColumns = ["formation_id"],
         childColumns = ["formation_id"])]
 )

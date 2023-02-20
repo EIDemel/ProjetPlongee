@@ -7,7 +7,7 @@ import java.util.Date
 
 @Entity(tableName = "session",foreignKeys = [
     ForeignKey(
-        entity = FomationEntity::class,
+        entity = FormationEntity::class,
         parentColumns = ["formation_id"],
         childColumns = ["formation_id"])]
 )

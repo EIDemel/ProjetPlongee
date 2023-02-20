@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey
         parentColumns = ["level_id"],
         childColumns = ["level_id"])]
 )
-class FomationEntity(
+class FormationEntity(
     @PrimaryKey(autoGenerate = true) var formation_id: Int,
     var formation_name: String,
     var formation_deleted: Boolean,
