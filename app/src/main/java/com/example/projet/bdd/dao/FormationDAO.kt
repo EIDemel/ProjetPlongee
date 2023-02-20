@@ -7,7 +7,7 @@ import com.example.projet.bdd.entity.FormationEntity
 @Dao
 interface FormationDAO {
     @Insert
-    fun insertOne(formation: FormationEntity) : Int
+    fun insertOne(formation: FormationEntity) : Long
 
     @Update
     fun update(vararg formation: FormationEntity)

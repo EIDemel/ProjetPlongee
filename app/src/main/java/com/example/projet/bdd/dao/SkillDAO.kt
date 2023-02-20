@@ -7,7 +7,7 @@ import com.example.projet.bdd.entity.SkillEntity
 @Dao
 interface SkillDAO {
     @Insert
-    fun insertOne(skill: SkillEntity) : Int
+    fun insertOne(skill: SkillEntity) : Long
 
     @Update
     fun update(vararg skill: SkillEntity)

@@ -8,7 +8,7 @@ import com.example.projet.bdd.entity.LevelEntity
 interface LevelDAO {
 
     @Insert
-    fun insertOne(level: LevelEntity) : Int
+    fun insertOne(level: LevelEntity) : Long
 
     @Update
     fun update(vararg level: LevelEntity)

@@ -8,7 +8,7 @@ import com.example.projet.bdd.entity.ContentEntity
 interface ContentDAO {
 
     @Insert
-    fun insertOne(content: ContentEntity) : Int
+    fun insertOne(content: ContentEntity) : Long
 
     @Update
     fun update(vararg content: ContentEntity)

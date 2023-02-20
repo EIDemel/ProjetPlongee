@@ -2,6 +2,7 @@ package com.example.projet.bdd.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.util.*
 
@@ -19,13 +20,18 @@ import java.util.*
         entity = StatusEntity::class,
         parentColumns = ["status_id"],
         childColumns = ["status_id"])
-]
+],
+    indices = [
+        Index("student_id"),
+        Index("content_id"),
+        Index("status_id")
+    ]
 )
 class ParticipationEntity(
-    @PrimaryKey(autoGenerate = true) var participation_id: Int,
-    var student_id: Int,
-    var content_id: Int,
-    var status_id: Int,
+    @PrimaryKey(autoGenerate = true) var participation_id: Long,
+    var student_id: Long,
+    var content_id: Long,
+    var status_id: Long,
     var commentary: String
 ) {
 }

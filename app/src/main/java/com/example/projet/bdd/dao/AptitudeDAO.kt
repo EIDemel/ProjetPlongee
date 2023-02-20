@@ -8,7 +8,7 @@ import com.example.projet.bdd.entity.AptitudeEntity
 interface AptitudeDAO {
 
     @Insert
-    fun insertOne(aptitude: AptitudeEntity) : Int
+    fun insertOne(aptitude: AptitudeEntity) : Long
 
     @Update
     fun update(vararg aptitude: AptitudeEntity)

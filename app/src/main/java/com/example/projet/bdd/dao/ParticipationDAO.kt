@@ -8,7 +8,7 @@ import com.example.projet.bdd.entity.ParticipationEntity
 interface ParticipationDAO {
 
     @Insert
-    fun insertOne(participation: ParticipationEntity) : Int
+    fun insertOne(participation: ParticipationEntity) : Long
 
     @Update
     fun update(vararg participation: ParticipationEntity)

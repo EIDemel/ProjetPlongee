@@ -1,0 +1,477 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "ef51cd9be66010b23c8f270ab706a640",
+    "entities": [
+      {
+        "tableName": "aptitude",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`aptitude_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `aptitude_name` TEXT NOT NULL, `skill_id` INTEGER NOT NULL, `aptitude_deleted` INTEGER NOT NULL, FOREIGN KEY(`skill_id`) REFERENCES `skill`(`skill_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "aptitude_id",
+            "columnName": "aptitude_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "aptitude_name",
+            "columnName": "aptitude_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "skill_id",
+            "columnName": "skill_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "aptitude_deleted",
+            "columnName": "aptitude_deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "aptitude_id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "skill",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "skill_id"
+            ],
+            "referencedColumns": [
+              "skill_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "content",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`content_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `session_id` INTEGER NOT NULL, `aptitude_id` INTEGER NOT NULL, FOREIGN KEY(`session_id`) REFERENCES `session`(`session_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`aptitude_id`) REFERENCES `aptitude`(`aptitude_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "content_id",
+            "columnName": "content_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "session_id",
+            "columnName": "session_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "aptitude_id",
+            "columnName": "aptitude_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "content_id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "session",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "session_id"
+            ],
+            "referencedColumns": [
+              "session_id"
+            ]
+          },
+          {
+            "table": "aptitude",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "aptitude_id"
+            ],
+            "referencedColumns": [
+              "aptitude_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "formation",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`formation_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `formation_name` TEXT NOT NULL, `formation_deleted` INTEGER NOT NULL, `level_id` INTEGER NOT NULL, FOREIGN KEY(`level_id`) REFERENCES `level`(`level_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "formation_id",
+            "columnName": "formation_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "formation_name",
+            "columnName": "formation_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "formation_deleted",
+            "columnName": "formation_deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "level_id",
+            "columnName": "level_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "formation_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_formation_level_id",
+            "unique": false,
+            "columnNames": [
+              "level_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_formation_level_id` ON `${TABLE_NAME}` (`level_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "level",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "level_id"
+            ],
+            "referencedColumns": [
+              "level_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "level",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`level_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `level_name` TEXT NOT NULL, `level_deleted` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "level_id",
+            "columnName": "level_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "level_name",
+            "columnName": "level_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "level_deleted",
+            "columnName": "level_deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "level_id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "participation",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`participation_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `student_id` INTEGER NOT NULL, `content_id` INTEGER NOT NULL, `status_id` INTEGER NOT NULL, `commentary` TEXT NOT NULL, FOREIGN KEY(`student_id`) REFERENCES `student`(`student_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`content_id`) REFERENCES `content`(`content_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`status_id`) REFERENCES `status`(`status_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "participation_id",
+            "columnName": "participation_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "student_id",
+            "columnName": "student_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "content_id",
+            "columnName": "content_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status_id",
+            "columnName": "status_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "commentary",
+            "columnName": "commentary",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "participation_id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "student",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "student_id"
+            ],
+            "referencedColumns": [
+              "student_id"
+            ]
+          },
+          {
+            "table": "content",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "content_id"
+            ],
+            "referencedColumns": [
+              "content_id"
+            ]
+          },
+          {
+            "table": "status",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "status_id"
+            ],
+            "referencedColumns": [
+              "status_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "session",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`session_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `session_date` TEXT NOT NULL, `formation_id` INTEGER NOT NULL, `session_deleted` INTEGER NOT NULL, FOREIGN KEY(`formation_id`) REFERENCES `formation`(`formation_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "session_id",
+            "columnName": "session_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "session_date",
+            "columnName": "session_date",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "formation_id",
+            "columnName": "formation_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "session_deleted",
+            "columnName": "session_deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "session_id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "formation",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "formation_id"
+            ],
+            "referencedColumns": [
+              "formation_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "skill",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`skill_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `skill_name` TEXT NOT NULL, `skill_deleted` INTEGER NOT NULL, `level_id` INTEGER NOT NULL, FOREIGN KEY(`level_id`) REFERENCES `level`(`level_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "skill_id",
+            "columnName": "skill_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "skill_name",
+            "columnName": "skill_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "skill_deleted",
+            "columnName": "skill_deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "level_id",
+            "columnName": "level_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "skill_id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "level",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "level_id"
+            ],
+            "referencedColumns": [
+              "level_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "status",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`status_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `status_name` TEXT NOT NULL, `status_color` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "status_id",
+            "columnName": "status_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status_name",
+            "columnName": "status_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status_color",
+            "columnName": "status_color",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "status_id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "student",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`student_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `student_name` TEXT NOT NULL, `formation_id` INTEGER NOT NULL, `student_deleted` INTEGER NOT NULL, `student_phone` INTEGER NOT NULL, FOREIGN KEY(`formation_id`) REFERENCES `formation`(`formation_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "student_id",
+            "columnName": "student_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "student_name",
+            "columnName": "student_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "formation_id",
+            "columnName": "formation_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "student_deleted",
+            "columnName": "student_deleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "student_phone",
+            "columnName": "student_phone",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "student_id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "formation",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "formation_id"
+            ],
+            "referencedColumns": [
+              "formation_id"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ef51cd9be66010b23c8f270ab706a640')"
+    ]
+  }
+}

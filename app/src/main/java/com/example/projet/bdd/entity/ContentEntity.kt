@@ -2,6 +2,7 @@ package com.example.projet.bdd.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 
@@ -14,11 +15,15 @@ import androidx.room.PrimaryKey
         entity = AptitudeEntity::class,
         parentColumns = ["aptitude_id"],
         childColumns = ["aptitude_id"])
-]
+],
+    indices = [
+        Index("session_id"),
+        Index("aptitude_id")
+    ]
 )
 class ContentEntity(
-    @PrimaryKey(autoGenerate = true) var content_id: Int,
-    var session_id: Int,
-    var aptitude_id: Int,
+    @PrimaryKey(autoGenerate = true) var content_id: Long,
+    var session_id: Long,
+    var aptitude_id: Long,
 ) {
 }

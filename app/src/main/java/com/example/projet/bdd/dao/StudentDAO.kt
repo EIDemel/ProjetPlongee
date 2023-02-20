@@ -7,7 +7,7 @@ import com.example.projet.bdd.entity.StudentEntity
 @Dao
 interface StudentDAO {
     @Insert
-    fun insertOne(student: StudentEntity) : Int
+    fun insertOne(student: StudentEntity) : Long
 
     @Update
     fun update(vararg student: StudentEntity)

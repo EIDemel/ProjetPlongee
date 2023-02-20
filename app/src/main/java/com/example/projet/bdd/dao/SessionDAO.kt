@@ -9,7 +9,7 @@ import com.example.projet.bdd.entity.SessionEntity
 interface SessionDAO {
 
     @Insert
-    fun insertOne(session: SessionEntity) : Int
+    fun insertOne(session: SessionEntity) : Long
 
     @Update
     fun update(vararg session: SessionEntity)

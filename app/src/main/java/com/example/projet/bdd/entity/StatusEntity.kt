@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "status")
 class StatusEntity(
-    @PrimaryKey(autoGenerate = true) var status_id: Int,
+    @PrimaryKey(autoGenerate = true) var status_id: Long,
     var status_name: String,
-    var status_color: Color,
+    var status_color: String,
 ) {
 }

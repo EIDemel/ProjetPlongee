@@ -7,7 +7,7 @@ import com.example.projet.bdd.entity.StatusEntity
 @Dao
 interface StatusDAO {
     @Insert
-    fun insertOne(status: StatusEntity) : Int
+    fun insertOne(status: StatusEntity) : Long
 
     @Update
     fun update(vararg status: StatusEntity)
