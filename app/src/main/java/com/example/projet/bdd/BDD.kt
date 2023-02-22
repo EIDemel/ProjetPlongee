@@ -17,7 +17,7 @@ import com.example.projet.bdd.entity.*
     SessionEntity::class,
     SkillEntity::class,
     StatusEntity::class,
-    StudentEntity::class, ], version = 5)
+    StudentEntity::class, ], version = 6)
 abstract class BDD : RoomDatabase() {
 
     companion object {

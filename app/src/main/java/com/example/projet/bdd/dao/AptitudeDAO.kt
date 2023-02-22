@@ -8,7 +8,10 @@ import com.example.projet.bdd.entity.AptitudeEntity
 interface AptitudeDAO {
 
     @Insert
-    fun insertOne(aptitude: AptitudeEntity) : Long
+    fun insertOne(aptitude: AptitudeEntity): Long
+
+    @Insert
+    fun insert(vararg aptitude: AptitudeEntity)
 
     @Update
     fun update(vararg aptitude: AptitudeEntity)
@@ -17,5 +20,7 @@ interface AptitudeDAO {
     fun delete(vararg aptitude: AptitudeEntity)
 
     @Query("SELECT * FROM aptitude")
-    fun getAll() : LiveData<List<AptitudeEntity>>
+    fun getAll(): LiveData<List<AptitudeEntity>>
+
 }
+

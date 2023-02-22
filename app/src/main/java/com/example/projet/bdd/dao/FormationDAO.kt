@@ -2,12 +2,15 @@ package com.example.projet.bdd.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.projet.bdd.entity.AptitudeEntity
 import com.example.projet.bdd.entity.FormationEntity
 
 @Dao
 interface FormationDAO {
     @Insert
     fun insertOne(formation: FormationEntity) : Long
+    @Insert
+    fun insert(vararg formation: FormationEntity)
 
     @Update
     fun update(vararg formation: FormationEntity)

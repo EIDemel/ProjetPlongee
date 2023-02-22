@@ -2,6 +2,7 @@ package com.example.projet.bdd.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.projet.bdd.entity.AptitudeEntity
 import com.example.projet.bdd.entity.ContentEntity
 import com.example.projet.bdd.entity.SessionEntity
 
@@ -10,6 +11,8 @@ interface SessionDAO {
 
     @Insert
     fun insertOne(session: SessionEntity) : Long
+    @Insert
+    fun insert(vararg session: SessionEntity)
 
     @Update
     fun update(vararg session: SessionEntity)
