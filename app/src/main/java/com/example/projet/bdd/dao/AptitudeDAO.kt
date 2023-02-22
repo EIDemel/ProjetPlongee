@@ -6,7 +6,6 @@ import com.example.projet.bdd.entity.AptitudeEntity
 
 @Dao
 interface AptitudeDAO {
-
     @Insert
     fun insertOne(aptitude: AptitudeEntity): Long
 
@@ -21,6 +20,5 @@ interface AptitudeDAO {
 
     @Query("SELECT * FROM aptitude")
     fun getAll(): LiveData<List<AptitudeEntity>>
-
 }
 

@@ -4,8 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.projet.bdd.dao.AptitudeDAO
-import com.example.projet.bdd.dao.ContentDAO
+import com.example.projet.bdd.dao.*
 import com.example.projet.bdd.entity.*
 
 @Database(entities = [
@@ -19,9 +18,19 @@ import com.example.projet.bdd.entity.*
     StatusEntity::class,
     StudentEntity::class, ], version = 6)
 abstract class BDD : RoomDatabase() {
+    abstract fun AptitudeDao(): AptitudeDAO
+    abstract fun ContentDao(): ContentDAO
+    abstract fun FormationDao(): FormationDAO
+    abstract fun LevelDao(): LevelDAO
+    abstract fun ParticipationDao(): ParticipationDAO
+    abstract fun SessionDao(): SessionDAO
+    abstract fun SkillDao(): SkillDAO
+    abstract fun StatusDao(): StatusDAO
+    abstract fun StudentDao(): StudentDAO
+
 
     companion object {
-        private var instance: BDD? = null
+            private var instance: BDD? = null
 
         fun getInstance(context: Context): BDD {
             if (instance == null) {
