@@ -21,5 +21,5 @@ class StudentEntity(
     var formation_id: Int,
     var student_deleted: Boolean,
     var student_phone: Int
-    ) {
+    ) : BaseEntity{
 }

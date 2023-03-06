@@ -33,5 +33,5 @@ class ParticipationEntity(
     var content_id: Long,
     var status_id: Long,
     var commentary: String
-) {
+) : BaseEntity{
 }

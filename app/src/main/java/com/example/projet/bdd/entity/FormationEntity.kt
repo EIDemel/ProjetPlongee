@@ -19,6 +19,6 @@ class FormationEntity(
     @ColumnInfo(name = "level_id",
         index = true)
     var level_id: Long
-)  {
+)  : BaseEntity{
 
 }

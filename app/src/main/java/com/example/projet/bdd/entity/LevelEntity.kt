@@ -8,5 +8,5 @@ class LevelEntity(
     @PrimaryKey(autoGenerate = true) var level_id: Long,
     var level_name: String,
     var level_deleted: Boolean,
-    ) {
+    ) : BaseEntity{
 }

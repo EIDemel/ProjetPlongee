@@ -19,5 +19,5 @@ class AptitudeEntity(
     var aptitude_name: String,
     var skill_id: Long,
     var aptitude_deleted: Boolean,
-) {
+) : BaseEntity {
 }

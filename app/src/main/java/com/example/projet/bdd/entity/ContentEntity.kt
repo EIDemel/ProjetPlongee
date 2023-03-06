@@ -25,5 +25,5 @@ class ContentEntity(
     @PrimaryKey(autoGenerate = true) var content_id: Long,
     var session_id: Long,
     var aptitude_id: Long,
-) {
+) : BaseEntity{
 }

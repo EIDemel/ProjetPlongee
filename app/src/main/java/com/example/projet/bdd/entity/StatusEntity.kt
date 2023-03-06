@@ -9,5 +9,5 @@ class StatusEntity(
     @PrimaryKey(autoGenerate = true) var status_id: Long,
     var status_name: String,
     var status_color: String,
-) {
+) : BaseEntity{
 }

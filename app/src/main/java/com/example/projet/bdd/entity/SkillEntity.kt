@@ -20,5 +20,5 @@ class SkillEntity(
     var skill_name: String,
     var skill_deleted: Boolean,
     var level_id: Long,
-) {
+) : BaseEntity{
 }
