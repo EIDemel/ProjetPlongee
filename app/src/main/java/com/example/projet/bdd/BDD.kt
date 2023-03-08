@@ -16,7 +16,8 @@ import com.example.projet.bdd.entity.*
     SessionEntity::class,
     SkillEntity::class,
     StatusEntity::class,
-    StudentEntity::class, ], version = 6)
+    StudentEntity::class,
+    InitiatorEntity::class], version = 6)
 abstract class BDD : RoomDatabase() {
     abstract fun AptitudeDao(): AptitudeDAO
     abstract fun ContentDao(): ContentDAO
