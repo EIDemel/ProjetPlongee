@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.projet.bdd.DatabaseFiller
+import com.example.projet.bdd.entity.AptitudeEntity
 import com.example.projet.ui.theme.ProjetTheme
 import com.google.firebase.crashlytics.buildtools.ndk.internal.dwarf.DWTag
 
@@ -28,7 +29,9 @@ class Plongee : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting(DatabaseFiller.main());
+//                    DatabaseFiller.queryRest<AptitudeEntity>("aptitude");
+                    DatabaseFiller.FillBase();
+//                  Greeting(DatabaseFiller.main());
                 }
             }
         }
