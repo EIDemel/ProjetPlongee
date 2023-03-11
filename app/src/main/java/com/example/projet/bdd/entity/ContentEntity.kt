@@ -29,5 +29,4 @@
         @PrimaryKey(autoGenerate = true) var content_id: Long,  // La clé primaire de l'entité "ContentEntity", générée automatiquement
         var session_id: Long,  // La clé étrangère de l'entité "ContentEntity" vers l'entité "SessionEntity"
         var aptitude_id: Long  // La clé étrangère de l'entité "ContentEntity" vers l'entité "AptitudeEntity"
-    ) {
-    }
+    ) : BaseEntity {}
