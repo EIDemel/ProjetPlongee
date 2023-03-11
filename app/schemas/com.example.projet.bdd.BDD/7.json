@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 6,
-    "identityHash": "7d2a2d1930d2beb8387207516653b685",
+    "version": 7,
+    "identityHash": "12172846376741e3ea24e23cf4ebb470",
     "entities": [
       {
         "tableName": "aptitude",
@@ -232,23 +232,23 @@
       },
       {
         "tableName": "participation",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `content_id` INTEGER NOT NULL, `student_id` INTEGER NOT NULL, `status_id` INTEGER NOT NULL, `commentary` TEXT NOT NULL, FOREIGN KEY(`content_id`) REFERENCES `content`(`content_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`student_id`) REFERENCES `student`(`student_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`status_id`) REFERENCES `status`(`status_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`participation_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `student_id` INTEGER NOT NULL, `content_id` INTEGER NOT NULL, `status_id` INTEGER NOT NULL, `commentary` TEXT NOT NULL, FOREIGN KEY(`student_id`) REFERENCES `student`(`student_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`content_id`) REFERENCES `content`(`content_id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`status_id`) REFERENCES `status`(`status_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "content_id",
-            "columnName": "content_id",
+            "fieldPath": "participation_id",
+            "columnName": "participation_id",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
             "fieldPath": "student_id",
             "columnName": "student_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "content_id",
+            "columnName": "content_id",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -268,19 +268,10 @@
         "primaryKey": {
           "autoGenerate": true,
           "columnNames": [
-            "id"
+            "participation_id"
           ]
         },
         "indices": [
-          {
-            "name": "index_participation_content_id",
-            "unique": false,
-            "columnNames": [
-              "content_id"
-            ],
-            "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_participation_content_id` ON `${TABLE_NAME}` (`content_id`)"
-          },
           {
             "name": "index_participation_student_id",
             "unique": false,
@@ -289,6 +280,15 @@
             ],
             "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_participation_student_id` ON `${TABLE_NAME}` (`student_id`)"
+          },
+          {
+            "name": "index_participation_content_id",
+            "unique": false,
+            "columnNames": [
+              "content_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_participation_content_id` ON `${TABLE_NAME}` (`content_id`)"
           },
           {
             "name": "index_participation_status_id",
@@ -302,17 +302,6 @@
         ],
         "foreignKeys": [
           {
-            "table": "content",
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "content_id"
-            ],
-            "referencedColumns": [
-              "content_id"
-            ]
-          },
-          {
             "table": "student",
             "onDelete": "NO ACTION",
             "onUpdate": "NO ACTION",
@@ -321,6 +310,17 @@
             ],
             "referencedColumns": [
               "student_id"
+            ]
+          },
+          {
+            "table": "content",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "content_id"
+            ],
+            "referencedColumns": [
+              "content_id"
             ]
           },
           {
@@ -558,7 +558,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7d2a2d1930d2beb8387207516653b685')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '12172846376741e3ea24e23cf4ebb470')"
     ]
   }
 }

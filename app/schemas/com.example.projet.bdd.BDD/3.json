@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "34260a1196c64abc1964caaea5b33e0d",
+    "identityHash": "12172846376741e3ea24e23cf4ebb470",
     "entities": [
       {
         "tableName": "aptitude",
@@ -93,7 +93,26 @@
             "content_id"
           ]
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_content_session_id",
+            "unique": false,
+            "columnNames": [
+              "session_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_content_session_id` ON `${TABLE_NAME}` (`session_id`)"
+          },
+          {
+            "name": "index_content_aptitude_id",
+            "unique": false,
+            "columnNames": [
+              "aptitude_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_content_aptitude_id` ON `${TABLE_NAME}` (`aptitude_id`)"
+          }
+        ],
         "foreignKeys": [
           {
             "table": "session",
@@ -252,7 +271,35 @@
             "participation_id"
           ]
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_participation_student_id",
+            "unique": false,
+            "columnNames": [
+              "student_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_participation_student_id` ON `${TABLE_NAME}` (`student_id`)"
+          },
+          {
+            "name": "index_participation_content_id",
+            "unique": false,
+            "columnNames": [
+              "content_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_participation_content_id` ON `${TABLE_NAME}` (`content_id`)"
+          },
+          {
+            "name": "index_participation_status_id",
+            "unique": false,
+            "columnNames": [
+              "status_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_participation_status_id` ON `${TABLE_NAME}` (`status_id`)"
+          }
+        ],
         "foreignKeys": [
           {
             "table": "student",
@@ -324,7 +371,17 @@
             "session_id"
           ]
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_session_formation_id",
+            "unique": false,
+            "columnNames": [
+              "formation_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_session_formation_id` ON `${TABLE_NAME}` (`formation_id`)"
+          }
+        ],
         "foreignKeys": [
           {
             "table": "formation",
@@ -374,7 +431,17 @@
             "skill_id"
           ]
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_skill_level_id",
+            "unique": false,
+            "columnNames": [
+              "level_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_skill_level_id` ON `${TABLE_NAME}` (`level_id`)"
+          }
+        ],
         "foreignKeys": [
           {
             "table": "level",
@@ -423,7 +490,7 @@
       },
       {
         "tableName": "student",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`student_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `student_name` TEXT NOT NULL, `formation_id` INTEGER NOT NULL, `student_deleted` INTEGER NOT NULL, `student_phone` INTEGER NOT NULL, FOREIGN KEY(`formation_id`) REFERENCES `formation`(`formation_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`student_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `student_name` TEXT NOT NULL, `formation_id` INTEGER NOT NULL, `student_deleted` INTEGER NOT NULL, `student_phone` TEXT NOT NULL, FOREIGN KEY(`formation_id`) REFERENCES `formation`(`formation_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "student_id",
@@ -452,7 +519,7 @@
           {
             "fieldPath": "student_phone",
             "columnName": "student_phone",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           }
         ],
@@ -462,7 +529,17 @@
             "student_id"
           ]
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_student_formation_id",
+            "unique": false,
+            "columnNames": [
+              "formation_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_student_formation_id` ON `${TABLE_NAME}` (`formation_id`)"
+          }
+        ],
         "foreignKeys": [
           {
             "table": "formation",
@@ -481,7 +558,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '34260a1196c64abc1964caaea5b33e0d')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '12172846376741e3ea24e23cf4ebb470')"
     ]
   }
 }

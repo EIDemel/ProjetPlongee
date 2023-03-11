@@ -16,7 +16,7 @@ import com.example.projet.bdd.entity.*
     SessionEntity::class,
     SkillEntity::class,
     StatusEntity::class,
-    StudentEntity::class, ], version = 6)
+    StudentEntity::class], version = 6)
 abstract class BDD : RoomDatabase() {
     abstract fun AptitudeDao(): AptitudeDAO
     abstract fun ContentDao(): ContentDAO
@@ -41,6 +41,11 @@ abstract class BDD : RoomDatabase() {
                 ).build()
             }
             return instance!!
+        }
+
+        fun destroyInstance() {
+            instance?.close()
+            instance = null
         }
     }
 }

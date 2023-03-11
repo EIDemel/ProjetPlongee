@@ -19,6 +19,6 @@ class SessionEntity(
     var session_date: String,
     var formation_id: Long,
     var session_deleted: Boolean,
-) {
+) : BaseEntity{
 
 }

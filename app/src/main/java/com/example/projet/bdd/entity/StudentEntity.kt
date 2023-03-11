@@ -1,6 +1,5 @@
 package com.example.projet.bdd.entity
 
-import android.provider.ContactsContract.CommonDataKinds.Phone
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
@@ -20,6 +19,6 @@ class StudentEntity(
     var student_name: String,
     var formation_id: Int,
     var student_deleted: Boolean,
-    var student_phone: Int
-    ) {
+    var student_phone: String
+    ) : BaseEntity{
 }

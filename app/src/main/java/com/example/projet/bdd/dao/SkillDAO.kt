@@ -2,7 +2,6 @@ package com.example.projet.bdd.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.projet.bdd.entity.AptitudeEntity
 import com.example.projet.bdd.entity.SkillEntity
 
 @Dao
@@ -20,4 +19,7 @@ interface SkillDAO {
 
     @Query("SELECT * FROM skill")
     fun getAll() : LiveData<List<SkillEntity>>
+
+    @Query("SELECT COUNT(*) FROM skill")
+    fun getNumberOfSkills(): Int
 }
