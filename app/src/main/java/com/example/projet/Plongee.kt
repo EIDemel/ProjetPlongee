@@ -3,6 +3,9 @@ package com.example.projet
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
@@ -32,23 +35,24 @@ class Plongee : ComponentActivity() {
 
         super.onCreate(savedInstanceState)
 
+        Thread{
+            // fill database if it is empty
+            if(BDD.getInstance(Plongee.getAppContext()!!).SkillDao().getNumberOfSkills()==0){
+                Plongee.getAppContext()!!.deleteDatabase("BDD_plongeurs")
+                BDD.getInstance(Plongee.getAppContext()!!)
+
+                DatabaseFiller.FillBase();
+            }
+        }.start()
+
         setContent {
             ProjetTheme {
-                // A surface container using the 'background' color from the theme
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
 
-                    Thread{
-                        // fill database if it is empty
-                        if(BDD.getInstance(Plongee.getAppContext()!!).SkillDao().getNumberOfSkills()==0){
-                            Plongee.getAppContext()!!.deleteDatabase("BDD_plongeurs")
-                            BDD.getInstance(Plongee.getAppContext()!!)
-
-                            DatabaseFiller.FillBase();
-                        }
-                    }.start()
 
 
                 }
