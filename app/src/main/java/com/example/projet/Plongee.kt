@@ -52,8 +52,7 @@ class Plongee : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-
-
+                    
 
                 }
             }
