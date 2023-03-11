@@ -8,7 +8,9 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -18,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.projet.bdd.BDD
 import com.example.projet.bdd.DatabaseFiller
+import com.example.projet.bdd.viewModel.*
 import com.example.projet.ui.theme.ProjetTheme
 
 class Plongee : ComponentActivity() {
@@ -46,14 +49,24 @@ class Plongee : ComponentActivity() {
         }.start()
 
         setContent {
+            val aptitudeVM by viewModels<AptitudeViewModel>()
+            val ContentVM by viewModels<ContentViewModel>()
+            val FormationVM by viewModels<FormationViewModel>()
+            val LevelVM by viewModels<LevelViewModel>()
+            val ParticipationVM by viewModels<ParticipationViewModel>()
+            val SessionVM by viewModels<SessionViewModel>()
+            val SkilVM by viewModels<SkillViewModel>()
+            val StatusVM by viewModels<StatusViewModel>()
+            val StudentVM by viewModels<StudentViewModel>()
             ProjetTheme {
 
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    
-
+                    Column {
+                        tableauFormation()
+                    }
                 }
             }
         }
@@ -63,6 +76,11 @@ class Plongee : ComponentActivity() {
 @Composable
 fun Greeting(name: String) {
     Text(text = "Hello $name!")
+}
+
+@Composable
+fun tableauFormation(){
+
 }
 
 @Preview(showBackground = true)
