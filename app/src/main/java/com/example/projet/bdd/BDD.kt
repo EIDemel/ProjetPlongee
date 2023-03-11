@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.projet.Plongee
 import com.example.projet.bdd.dao.*
 import com.example.projet.bdd.entity.*
 
@@ -46,6 +47,18 @@ abstract class BDD : RoomDatabase() {
         fun destroyInstance() {
             instance?.close()
             instance = null
+        }
+
+        fun BDDNotFull(): Boolean {
+            return (BDD.getInstance(Plongee.getAppContext()!!).AptitudeDao().getNumberOfAptitude()==0
+                    || BDD.getInstance(Plongee.getAppContext()!!).ContentDao().getNumberOfContents()==0
+                    || BDD.getInstance(Plongee.getAppContext()!!).FormationDao().getNumberOfFormations()==0
+                    || BDD.getInstance(Plongee.getAppContext()!!).LevelDao().getNumberOfLevels()==0
+                    || BDD.getInstance(Plongee.getAppContext()!!).ParticipationDao().getNumberOfParticipations()==0
+                    || BDD.getInstance(Plongee.getAppContext()!!).SessionDao().getNumberOfSessions()==0
+                    || BDD.getInstance(Plongee.getAppContext()!!).SkillDao().getNumberOfSkills()==0
+                    || BDD.getInstance(Plongee.getAppContext()!!).StatusDao().getNumberOfStatus()==0
+                    || BDD.getInstance(Plongee.getAppContext()!!).StudentDao().getNumberOfStudents()==0)
         }
     }
 }

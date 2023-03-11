@@ -21,4 +21,7 @@ interface ParticipationDAO {
     @Query("SELECT * FROM participation")
     fun getAll() : LiveData<List<ParticipationEntity>>
 
+    @Query("SELECT COUNT(*) FROM participation")
+    fun getNumberOfParticipations(): Int
+
 }

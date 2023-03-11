@@ -21,4 +21,6 @@ interface SessionDAO {
     @Query("SELECT * FROM session")
     fun getAll() : LiveData<List<SessionEntity>>
 
+    @Query("SELECT COUNT(*) FROM session")
+    fun getNumberOfSessions(): Int
 }

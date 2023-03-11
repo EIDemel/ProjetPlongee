@@ -19,4 +19,7 @@ interface FormationDAO {
 
     @Query("SELECT * FROM formation")
     fun getAll() : LiveData<List<FormationEntity>>
+
+    @Query("SELECT COUNT(*) FROM formation")
+    fun getNumberOfFormations(): Int
 }

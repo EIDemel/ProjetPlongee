@@ -21,4 +21,7 @@ interface LevelDAO {
     @Query("SELECT * FROM level")
     fun getAll() : LiveData<List<LevelEntity>>
 
+    @Query("SELECT COUNT(*) FROM level")
+    fun getNumberOfLevels(): Int
+
 }

@@ -40,7 +40,7 @@ class Plongee : ComponentActivity() {
 
         Thread{
             // fill database if it is empty
-            if(BDD.getInstance(Plongee.getAppContext()!!).SkillDao().getNumberOfSkills()==0){
+            if(BDD.BDDNotFull()){
                 Plongee.getAppContext()!!.deleteDatabase("BDD_plongeurs")
                 BDD.getInstance(Plongee.getAppContext()!!)
 

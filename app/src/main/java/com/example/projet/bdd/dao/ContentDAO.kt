@@ -26,4 +26,7 @@ interface ContentDAO {
     // Récupère tous les éléments de la table content et les retourne sous forme de LiveData
     @Query("SELECT * FROM content")
     fun getAll() : LiveData<List<ContentEntity>>
+
+    @Query("SELECT COUNT(*) FROM content")
+    fun getNumberOfContents(): Int
 }

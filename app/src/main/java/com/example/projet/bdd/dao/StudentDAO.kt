@@ -19,4 +19,7 @@ interface StudentDAO {
 
     @Query("SELECT * FROM student")
     fun getAll() : LiveData<List<StudentEntity>>
+
+    @Query("SELECT COUNT(*) FROM student")
+    fun getNumberOfStudents(): Int
 }

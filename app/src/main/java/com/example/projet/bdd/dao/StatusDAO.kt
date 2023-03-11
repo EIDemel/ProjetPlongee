@@ -19,4 +19,7 @@ interface StatusDAO {
 
     @Query("SELECT * FROM status")
     fun getAll() : LiveData<List<StatusEntity>>
+
+    @Query("SELECT COUNT(*) FROM status")
+    fun getNumberOfStatus(): Int
 }

@@ -28,4 +28,7 @@ interface AptitudeDAO {
     // La méthode retourne un objet LiveData qui permet d'observer les résultats en temps réel
     @Query("SELECT * FROM aptitude")
     fun getAll(): LiveData<List<AptitudeEntity>>
+
+    @Query("SELECT COUNT(*) FROM aptitude")
+    fun getNumberOfAptitude(): Int
 }
