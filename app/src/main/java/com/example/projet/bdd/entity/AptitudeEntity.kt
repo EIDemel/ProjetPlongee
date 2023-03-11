@@ -23,5 +23,5 @@ class AptitudeEntity(
     var aptitude_name: String, // nom de l'aptitude
     var skill_id: Long, // clé étrangère de l'entité SkillEntity liée
     var aptitude_deleted: Boolean, // indique si l'aptitude a été supprimée
-) {
+) : BaseEntity {
 }

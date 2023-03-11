@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Projet"
         tools:targetApi="31">
         <activity
+            android:name=".LoginView"
+            android:exported="false" />
+        <activity
             android:name=".Plongee"
             android:exported="true"
             android:label="@string/title_activity_plongee"
