@@ -19,4 +19,7 @@ interface SkillDAO {
 
     @Query("SELECT * FROM skill")
     fun getAll() : LiveData<List<SkillEntity>>
+
+    @Query("SELECT COUNT(*) FROM skill")
+    fun getNumberOfSkills(): Int
 }

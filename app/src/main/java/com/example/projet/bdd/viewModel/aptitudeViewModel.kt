@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.projet.bdd.BDD
 import com.example.projet.bdd.entity.AptitudeEntity
-import com.example.projet.bdd.entity.InitiatorEntity
 
 class aptitudeViewModel(app : Application): AndroidViewModel(app) {
 

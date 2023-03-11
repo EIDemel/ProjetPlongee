@@ -1,5 +1,6 @@
 package com.example.projet
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,12 +13,23 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.projet.bdd.BDD
 import com.example.projet.bdd.DatabaseFiller
 import com.example.projet.ui.theme.ProjetTheme
 
 class Plongee : ComponentActivity() {
+    companion object{
+        private var context: Context? = null
+
+        fun getAppContext(): Context? {
+            return Plongee.context
+        }
+    }
+
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
+        Plongee.context = getApplicationContext();
+
         super.onCreate(savedInstanceState)
 
         setContent {
@@ -27,9 +39,18 @@ class Plongee : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-//                    DatabaseFiller.queryRest<AptitudeEntity>("aptitude");
-                    DatabaseFiller.FillBase();
-//                  Greeting(DatabaseFiller.main());
+
+                    Thread{
+                        // fill database if it is empty
+                        if(BDD.getInstance(Plongee.getAppContext()!!).SkillDao().getNumberOfSkills()==0){
+                            Plongee.getAppContext()!!.deleteDatabase("BDD_plongeurs")
+                            BDD.getInstance(Plongee.getAppContext()!!)
+
+                            DatabaseFiller.FillBase();
+                        }
+                    }.start()
+
+
                 }
             }
         }

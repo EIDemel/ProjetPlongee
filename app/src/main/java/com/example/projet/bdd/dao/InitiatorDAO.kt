@@ -1,3 +1,4 @@
+/*
 package com.example.projet.bdd.dao
 
 import androidx.lifecycle.LiveData
@@ -22,3 +23,4 @@ interface InitiatorDAO {
     fun getAll(): LiveData<List<InitiatorEntity>>
 }
 
+*/

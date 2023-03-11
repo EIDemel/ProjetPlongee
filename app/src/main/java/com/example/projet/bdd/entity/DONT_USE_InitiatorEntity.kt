@@ -1,10 +1,11 @@
+/*
 package com.example.projet.bdd.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "initiator")
-class InitiatorEntity(
+class DONT_USE_InitiatorEntity(
     @PrimaryKey(autoGenerate = true) var initiator_id: Long,
     var name: String,
     var email: String,
@@ -13,4 +14,4 @@ class InitiatorEntity(
     var levelId: Long,
     var deleted: Boolean,
 ) : BaseEntity {
-}
+}*/

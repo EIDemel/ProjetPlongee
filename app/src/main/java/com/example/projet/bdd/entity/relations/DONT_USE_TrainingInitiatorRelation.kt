@@ -1,3 +1,4 @@
+/*
 package com.example.projet.bdd.entity.relations
 
 import androidx.room.ColumnInfo
@@ -6,7 +7,6 @@ import androidx.room.ForeignKey
 import com.example.projet.bdd.entity.BaseEntity
 import com.example.projet.bdd.entity.FormationEntity
 import com.example.projet.bdd.entity.InitiatorEntity
-import com.example.projet.bdd.entity.SkillEntity
 
 @Entity(
     tableName="training_initiator_relation",
@@ -24,7 +24,7 @@ import com.example.projet.bdd.entity.SkillEntity
         )
     ]
 )
-data class TrainingInitiatorRelation(
+data class DONT_USE_TrainingInitiatorRelation(
     @ColumnInfo(name="id")
     var id: String,
 
@@ -33,4 +33,4 @@ data class TrainingInitiatorRelation(
 
     @ColumnInfo(name = "formation_id")
     val formationId: Long
-    ) : BaseEntity
+    ) : BaseEntity*/

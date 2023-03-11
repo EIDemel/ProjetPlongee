@@ -1,10 +1,12 @@
 package com.example.projet.bdd
 
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
+import androidx.room.util.joinIntoString
+import com.example.projet.Plongee
+import com.example.projet.bdd.dao.AptitudeDAO
 import com.example.projet.bdd.entity.*
-import com.example.projet.bdd.entity.relations.FormationSkillRelation
-import com.example.projet.bdd.entity.relations.TrainingInitiatorRelation
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -26,60 +28,202 @@ class DatabaseFiller {
         // en train d'être crée : trainingManager (TrainingInitiatorRelation, nécessite qu'Initiator soit crée)
 
         fun FillBase(){
-            // requests
-            var aptitudes = queryRest<AptitudeEntity>("aptitude",AptitudeEntity::class.java);
-            var containSkill = queryRest<FormationSkillRelation>("containSkill",FormationSkillRelation::class.java);
-            var content = queryRest<ContentEntity>("content",ContentEntity::class.java);
-            var formation = queryRest<FormationEntity>("formation",FormationEntity::class.java);
-            var initiator = queryRest<InitiatorEntity>("initiator",InitiatorEntity::class.java);
-            var level = queryRest<LevelEntity>("level",LevelEntity::class.java);
-            var participation = queryRest<ParticipationEntity>("participation",ParticipationEntity::class.java);
-            var session = queryRest<SessionEntity>("session",SessionEntity::class.java);
-            var skill = queryRest<SkillEntity>("skill",SkillEntity::class.java);
-            var status = queryRest<StatusEntity>("status",StatusEntity::class.java);
-            var student = queryRest<StudentEntity>("student",StudentEntity::class.java);
-            var trainingManager = queryRest<TrainingInitiatorRelation>("trainingManager",TrainingInitiatorRelation::class.java);
+            // requests ; elles sont dans l'ordre donc ne pas mettre le désordre
 
-
-            // create entities
-            aptitudes?.forEach {
-
-            }
+            Thread{
+                var level = queryRest("level",LevelEntity::class.java);
+                Thread.sleep(3000)
+                var status = queryRest("status",StatusEntity::class.java);
+                Thread.sleep(3000)
+                var formation = queryRest("formation",FormationEntity::class.java);
+                Thread.sleep(3000)
+                var session = queryRest("session",SessionEntity::class.java);
+                Thread.sleep(3000)
+                var skill = queryRest("skill",SkillEntity::class.java);
+                Thread.sleep(3000)
+                var aptitudes = queryRest("aptitude", AptitudeEntity::class.java)
+                Thread.sleep(3000)
+                var student = queryRest("student",StudentEntity::class.java);
+                Thread.sleep(3000)
+                var content = queryRest("content",ContentEntity::class.java);
+                Thread.sleep(3000)
+                var participation = queryRest("participation",ParticipationEntity::class.java);
+            }.start()
         }
 
-         private fun <BaseEntity> queryRest(entity_rest_name: String, clazz: Class<BaseEntity>): List<BaseEntity>?{
-             val json = RestAPIRequestThread(entity_rest_name).start()
 
-             when(clazz){
-                 AptitudeEntity::class.java -> println("AptitudeEntity")
-                 ContentEntity::class.java -> println("AptitudeEntity")
-                 FormationEntity::class.java -> println("AptitudeEntity")
-                 InitiatorEntity::class.java -> println("AptitudeEntity")
-                 LevelEntity::class.java -> println("AptitudeEntity")
-                 ParticipationEntity::class.java -> println("AptitudeEntity")
-                 SessionEntity::class.java -> println("AptitudeEntity")
-                 SkillEntity::class.java -> println("AptitudeEntity")
-                 StatusEntity::class.java -> println("AptitudeEntity")
-                 StudentEntity::class.java -> println("AptitudeEntity")
+        private fun queryRest(entity_rest_name: String, clazz: Class<out BaseEntity>) {
+            val handler = Handler(Looper.getMainLooper(), object : Handler.Callback {
+                override fun handleMessage(message: Message): Boolean {
+                    val jsonArray = message.obj as JSONArray
 
-                 FormationSkillRelation::class.java -> println("AptitudeEntity")
-                 TrainingInitiatorRelation::class.java -> println("AptitudeEntity")
-                 else -> println("BaseEntity")
-             }
-
-             return null;
-         }
-
-        private fun insertAll(allEntities: List<List<BaseEntity>>) {
-            for (entities_type in allEntities) {
-                for (entity in entities_type) {
-
+                    createAndInsertEntities(jsonArray,clazz)
+                    return true
                 }
-            }
+            })
+
+            val json = RestAPIRequestThread(entity_rest_name, handler)
+        }
+
+        private fun createAndInsertEntities(jsonArray: JSONArray, clazz: Class<out BaseEntity>) {
+            Thread{
+                when(clazz){
+                    // APTITUDE
+                    AptitudeEntity::class.java ->{
+                        println("AptitudeEntity")
+
+                        for (i in 0 until jsonArray.length()) {
+                            val dict = jsonArray.getJSONObject(i)
+
+                            val aptitudeDAO = BDD.getInstance(Plongee.getAppContext()!!).AptitudeDao().insertOne(AptitudeEntity(
+                                dict["id"].toString().toLong(),
+                                dict["name"].toString(),
+                                dict["skillId"].toString().toLong(),
+                                dict["deleted"].toString().toBoolean()))
+                        }
+                    }
+
+                    // CONTENT
+                    ContentEntity::class.java -> {
+                        println("ContentEntity")
+
+                        for (i in 0 until jsonArray.length()) {
+                            val dict = jsonArray.getJSONObject(i)
+
+                            val contentDAO = BDD.getInstance(Plongee.getAppContext()!!).ContentDao().insertOne(
+                                ContentEntity(
+                                    dict["id"].toString().toLong(),
+                                    dict["sessionId"].toString().toLong(),
+                                    dict["aptitudeId"].toString().toLong()))
+                        }
+                    }
+
+                    // FORMATION
+                    FormationEntity::class.java -> {
+                        println("FormationEntity")
+
+                        for (i in 0 until jsonArray.length()) {
+                            val dict = jsonArray.getJSONObject(i)
+
+                            val formationDao = BDD.getInstance(Plongee.getAppContext()!!).FormationDao().insertOne(FormationEntity(
+                                    dict["id"].toString().toLong(),
+                                    dict["name"].toString(),
+                                    dict["deleted"].toString().toBoolean(),
+                                    dict["levelId"].toString().toLong()))
+                        }
+                    }
+
+                    // LEVEL
+                    LevelEntity::class.java -> {
+                        println("LevelEntity")
+
+                        for (i in 0 until jsonArray.length()) {
+                            val dict = jsonArray.getJSONObject(i)
+
+                            try{
+                                val levelDao = BDD.getInstance(Plongee.getAppContext()!!).LevelDao().insertOne(
+                                    LevelEntity(
+                                        dict["id"].toString().toLong(),
+                                        dict["name"].toString(),
+                                        dict["deleted"].toString().toBoolean()
+                                    ))
+                            }catch(e: java.lang.Exception){
+                                println("err")
+                            }finally {
+                                var lvl =
+                                    listOf(BDD.getInstance(Plongee.getAppContext()!!).LevelDao().getAll())
+                            }
+
+
+                        }
+
+
+                    }
+
+                    // PARTICIPATION
+                    ParticipationEntity::class.java -> {
+                        println("ParticipationEntity")
+
+                        for (i in 0 until jsonArray.length()) {
+                            val dict = jsonArray.getJSONObject(i)
+
+                            val participationDao = BDD.getInstance(Plongee.getAppContext()!!).ParticipationDao().insertOne(ParticipationEntity(
+                                dict["id"].toString().toLong(),
+                                dict["contentId"].toString().toLong(),
+                                dict["studentId"].toString().toLong(),
+                                dict["statusId"].toString().toLong(),
+                                dict["commentary"].toString()))
+                        }
+                    }
+
+                    // SESSION
+                    SessionEntity::class.java -> {
+                        println("SessionEntity")
+
+                        for (i in 0 until jsonArray.length()) {
+                            val dict = jsonArray.getJSONObject(i)
+
+                            val sessionDao = BDD.getInstance(Plongee.getAppContext()!!).SessionDao().insertOne(SessionEntity(
+                                dict["id"].toString().toLong(),
+                                dict["date"].toString(),
+                                dict["formationId"].toString().toLong(),
+                                dict["deleted"].toString().toBoolean()))
+                        }
+                    }
+
+                    // SKILL
+                    SkillEntity::class.java -> {
+                        println("SkillEntity")
+
+                        for (i in 0 until jsonArray.length()) {
+                            val dict = jsonArray.getJSONObject(i)
+
+                            val skillDao = BDD.getInstance(Plongee.getAppContext()!!).SkillDao().insertOne(SkillEntity(
+                                dict["id"].toString().toLong(),
+                                dict["name"].toString(),
+                                dict["deleted"].toString().toBoolean(),
+                                dict["levelId"].toString().toLong()))
+                        }
+                    }
+
+                    // STATUS
+                    StatusEntity::class.java -> {
+                        println("StatusEntity")
+
+                        for (i in 0 until jsonArray.length()) {
+                            val dict = jsonArray.getJSONObject(i)
+
+                            val statusDao = BDD.getInstance(Plongee.getAppContext()!!).StatusDao().insertOne(StatusEntity(
+                                dict["id"].toString().toLong(),
+                                dict["name"].toString(),
+                                dict["color"].toString()))
+                        }
+                    }
+
+                    // STUDENT
+                    StudentEntity::class.java -> {
+                        println("StudentEntity")
+
+                        for (i in 0 until jsonArray.length()) {
+                            val dict = jsonArray.getJSONObject(i)
+
+                            val studentDao = BDD.getInstance(Plongee.getAppContext()!!).StudentDao().insertOne(StudentEntity(
+                                dict["id"].toString().toInt(),
+                                dict["name"].toString(),
+                                dict["formationId"].toString().toInt(),
+                                dict["deleted"].toString().toBoolean(),
+                                dict["phone"].toString()))
+                        }
+                    }
+
+                    else -> println("BaseEntity")
+                }
+            }.start()
+
         }
 
 
-        private fun RestAPIRequestThread(rest_entity_name: String) : JSONArray? {
+        private fun RestAPIRequestThread(rest_entity_name: String, handler: Handler) {
             Thread{
                 val urlString = "https://dev-restandroid.users.info.unicaen.fr/REST/$rest_entity_name/index.php"
                 var connection: HttpURLConnection? = null
@@ -127,8 +271,9 @@ class DatabaseFiller {
                             decodedJsonArray.put(decodedJsonObject)
                         }
 
-                        println(decodedJsonArray)
-                        return decodedJsonArray
+                        val message = handler.obtainMessage()
+                        message.obj = decodedJsonArray
+                        handler.sendMessage(message)
                     } else {
                         println("Error: ${connection.responseCode}")
                     }
@@ -138,8 +283,6 @@ class DatabaseFiller {
                     connection?.disconnect()
                 }
             }.start()
-
-            return null
         }
 
     }
